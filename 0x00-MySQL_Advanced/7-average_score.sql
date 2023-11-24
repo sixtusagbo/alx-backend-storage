@@ -5,7 +5,7 @@ DELIMITER $$
 
 CREATE PROCEDURE ComputeAverageScoreForUser(IN input_user_id INT)
 BEGIN
-  DECLARE result INT DEFAULT 0;
+  DECLARE result DECIMAL(8,2) DEFAULT 0.0;
   SELECT AVG(score) INTO result
   FROM corrections
   WHERE user_id = input_user_id;
