@@ -19,7 +19,7 @@ class Cache:
         self._redis.set(key, data)
         return key
 
-    def get(self, key: str, fn: Callable) -> Any:
+    def get(self, key: str, fn: Callable) -> bytes:
         """Return data from the cache
         Uses the callable to convert the data to a specific desired format
         """
@@ -27,3 +27,15 @@ class Cache:
         if data is None:
             return None
         return data if fn is None else fn(data)
+
+    def get_str(self, key: str) -> str:
+        """Automatically parameterize `Cache.get`
+        with str conversion function
+        """
+        return self.get(key, str)
+
+    def get_int(self, key: int) -> int:
+        """Automatically parameterize `Cache.get`
+        with int conversion function
+        """
+        return self.get(key, int)
