@@ -19,7 +19,7 @@ class Cache:
         self._redis.set(key, data)
         return key
 
-    def get(self, key: str, fn: Callable) -> bytes:
+    def get(self, key: str, fn: Callable = None) -> Any:
         """Return data from the cache
         Uses the callable to convert the data to a specific desired format
         """
