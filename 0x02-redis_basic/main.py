@@ -1,12 +1,17 @@
 #!/usr/bin/env python3
 """ Main file """
+import redis
+import time
 
-Cache = __import__('exercise').Cache
-replay = __import__('exercise').replay
+get_page = __import__('web').get_page
+_redis = redis.Redis()
 
-cache = Cache()
-
-cache.store("foo")
-cache.store("bar")
-cache.store(42)
-replay(cache.store)
+url = "http://google.com"
+count_key = "count:{}".format(url)
+print('get_page result:')
+print(get_page(url))
+print()
+print('------------------------------------------------------')
+print("{}: {}".format(count_key, int(_redis.get(count_key))))
+time.sleep(3)
+print("ttl after 3s: {}".format(_redis.ttl(url)))
